@@ -58,7 +58,7 @@ export default function LoginScreen({ navigation }) {
         onChangeText={inputPasswordHandler}
             />
             
-        <Pressable style={styles.submitButton} onPress={onRegister } >
+        <Pressable style={styles.submitButton} onPress={() => navigation.navigate("PostsScreen")} >
           <Text style={styles.buttonText }>Зарегистрироваться</Text>
           </Pressable>
               <Button onPress={() => navigation.navigate("Login")} title='Уже есть аккаунт? Войти'></Button>
