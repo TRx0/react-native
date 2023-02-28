@@ -23,19 +23,20 @@ const Tab = createBottomTabNavigator();
           <MainStack.Screen name="Login" component={LoginScreen} />
           <MainStack.Screen name="PostsScreen" component={PostsScreen} />
         </MainStack.Navigator>
-     } return <Tab.Navigator initialRouteName="PostsScreen"  >
+   } return <Tab.Navigator initialRouteName="PostsScreen" options={{} } >
        <Tab.Screen name="PostsScreen" component={PostsScreen} options={{
-           
+            tabBarShowLabel: false,
              tabBarIcon: ({ color }) => <Ionicons name="grid-outline" size={24} color={color } />
              }} />
          <Tab.Screen name="CreatePostsScreen" component={CreatePostsScreen} 
              
              options={{
-                 
+                 tabBarShowLabel: false,
                  tabBarIcon: ({ color }) => <AntDesign
                  name="plus" size={24} color={color } />
              }}/>
-          <Tab.Screen name="ProfileScreen" component={ProfileScreen}  options={{
+     <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{
+            tabBarShowLabel: false,
              tabBarIcon: ({ color }) => <AntDesign  name="user" size={24} color={color} />
              }}/>
         </Tab.Navigator>

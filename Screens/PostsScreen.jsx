@@ -20,14 +20,48 @@ export default function PostsScreen({ route }) {
      },[route.params])
     
     return (
-        <View>
+        <View style={styles.container }>
             <FlatList data={posts} keyExtractor={(item, index) => index.toString()} renderItem={({ item }) =>
                 <View>
-                    <Image source={{ uri: item.photo }} style={{ height: 200, marginBottom: 10 }} />
-                    <Text > {route.params.nameValue}</Text>
-                    <Text >{location.coords.longitude },  {location.coords.latitude }</Text>
+                    <Image source={{ uri: item.photo }} style={styles.image} />
+                    <Text style={styles.h3}>{route.params.nameValue}</Text>
+                    <View style={{flex:1,flexDirection:"row", marginBottom:34}}>
+                        <Text style={styles.comments}>
+                            <EvilIcons name="comment" size={24} color="black" />
+                        </Text>
+                        <Text style={styles.locationValue}>{route.params.locationValue}</Text>
+                    </View>
+                    
                 </View>} />
             
         </View>
     )
 }
+const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+    },
+    image: {
+        height: 240,
+        borderRadius: 8,
+        marginBottom:8,
+    },
+    h3: {
+        fontWeight: "500",
+        fontSize: 16,
+        lineHeight: 19,
+        color: "#212121",
+        marginBottom:11
+    },
+    locationValue: {
+        fontWeight: "400",
+        fontSize: 16,
+        lineHeight: 19,
+        color: "#212121",
+        textDecorationLine: "underline",
+        marginLeft: "auto"
+    },
+    comments: {
+
+    }
+});

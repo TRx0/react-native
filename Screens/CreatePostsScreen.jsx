@@ -23,7 +23,7 @@ export default function CreatePostsScreen({ navigation }) {
       ...prevState,
       locationCoords: location.coords,
     }));
-    console.log(location)
+    console.log(location.coords.longitude)
   }
 
  useEffect(() => {
@@ -35,14 +35,17 @@ export default function CreatePostsScreen({ navigation }) {
         return;
       }
       let location = await Location.getCurrentPositionAsync({});
+      const locationcoord = location.coords.
+      console.log(location)
       setLocation(location);
+    
     })();
   }, []);
 
 
 
   const sendPhoto = () => {
-    navigation.navigate("PostsScreen", {photo, location,nameValue,locationValue})
+    navigation.navigate("PostsScreen", {photo, nameValue,locationValue})
   }
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
@@ -77,17 +80,20 @@ export default function CreatePostsScreen({ navigation }) {
           <SimpleLineIcons name="camera" size={24} color="white" />
         </TouchableOpacity>
       </Camera>
-      <View style={{
-         }}>
-        <EvilIcons name="location" size={24} color="black" />
-        {location && <TextInput style={styles.input }  placeholder="Назва..." >
-           {location.coords.longitude },  {location.coords.latitude }
-        </TextInput> }
       
-        </View> 
-      <TextInput style={styles.input} value={location } onChangeText={text => onChangeLocation(text)} placeholder="Місцевість...">
+      <TextInput style={styles.input}  onChangeText={text => onChangeName(text)} placeholder="Назва..." >
 
       </TextInput>
+      <View style={{
+         flexDirection: "row"
+         }}>
+        <EvilIcons name="location" size={24} color="black" />
+        <TextInput style={styles.input} onChangeText={text => onChangeLocation(text)} placeholder="Місцевість..."   >
+          
+        </TextInput>
+         
+      
+        </View> 
       <View style={{alignItems: "center"}}>
         <TouchableOpacity style={styles.snapSendContainer }  onPress={sendPhoto}>
           <Text style={styles.snap }>Опублікувати</Text>
@@ -151,5 +157,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     marginBottom: 32,
+    
   }
 });
