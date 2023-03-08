@@ -13,22 +13,37 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { useDispatch } from "react-redux"
+import { authSighInUser } from "../redax/auth/authOperations";
+
+
+const initialState = {
+  email: "",
+  password: ""
+};
+
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+ const [state, setstate] = useState(initialState);
+  
+const dispatch = useDispatch();
+const handleSubmit = () => {
+  dispatch(authSighInUser(state))
+  console.log(state)
+    setstate(initialState);
+  };
 
-  const inputEmailHandler = (text) => setEmail(text);
-  const inputPasswordHandler = (text) => setPassword(text);
-  const onLogin = () => {
-    console.log("Email:", email, ", Password:", password)
-   }
+  const keyboardHide = () => { 
+    Keyboard.dismiss();
+    setIsShowKeyboard(false);
+  }
 
   return (
     <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
       >
-     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+     <TouchableWithoutFeedback onPress={keyboardHide}>
     <View style={styles.container }>
       <ImageBackground source={require('../assets/Photo_BG.png')} style={{width:"100%", height:"100%", position: "relative",  }}></ImageBackground>
       <View style={{ position: "absolute", width: "100%", height: "100%", backgroundColor: 'white', top: "40%", display: "flex", alignItems: "center", borderRadius: 25 ,paddingTop: 32,paddingLeft: 16,paddingRight:16  }}>
@@ -36,19 +51,23 @@ export default function LoginScreen({ navigation }) {
       
           <TextInput
             placeholder="Адрес электронной почты"
-            value={email}
-            onChangeText={inputEmailHandler}
+            value={state.email}
+            onChangeText={(value) =>
+                    setstate((prevState) => ({ ...prevState, email: value }))
+                  }
             style={styles.input}
             />
         
       <TextInput
         placeholder="Пароль"
         style={styles.input}
-        value={password}
-        onChangeText={inputPasswordHandler}
+        value={state.password}
+        onChangeText={(value) =>
+                    setstate((prevState) => ({ ...prevState, password: value }))
+                  }
           />
           
-        <Pressable style={styles.submitButton} onPress={() => navigation.navigate("PostsScreen")}>
+        <Pressable style={styles.submitButton} onPress={handleSubmit}>
               <Text  style={styles.buttonText }  >Войти</Text>
           </Pressable>
             <Button  onPress={() => navigation.navigate("Registration")} title="Нет аккаунта? Зарегистрироваться" ></Button>

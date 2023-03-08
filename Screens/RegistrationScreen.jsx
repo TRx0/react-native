@@ -14,23 +14,32 @@ import {
   Keyboard, 
   Image
 } from "react-native";
-
+import {useDispatch} from 'react-redux'
+import {authSighUpUser} from '../redax/auth/authOperations'
+const initialState = {
+  email: "",
+  password: "",
+  nickname: "",
+};
 export default function LoginScreen({ navigation }) {
-  const [login, setLogin] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+   const [state, setstate] = useState(initialState);
+    const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  
+  const dispatch = useDispatch();
 
-  const inputLoginHandler = (text) => setLogin(text);
-  const inputEmailHandler = (text) => setEmail(text);
-  const inputPasswordHandler = (text) => setPassword(text);
-  const onRegister = () => {
-    console.log("Login:", login,", Email:", email, ", Password:", password)
-   }
+  const handleSubmit = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+
+  
+    dispatch(authSighUpUser(state))
+    setstate(initialState);
+  };
   return (
     <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
       >
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={handleSubmit}>
     <View style={styles.container }>
       <ImageBackground source={require('../assets/Photo_BG.png')} style={{width:"100%", height:"100%", position: "relative" }}></ImageBackground>
           <View style={{ position: "absolute", width: "100%", height: "100%", backgroundColor: 'white', top: "20%", display: "flex", alignItems: "center", borderRadius: 25, paddingTop: 92, paddingLeft: 16, paddingRight: 16 }}>
@@ -39,26 +48,34 @@ export default function LoginScreen({ navigation }) {
       
     <TextInput
         placeholder="Логин"
-        value={login}
+        value={state.nickname}
         style={styles.input}   
-        onChangeText={inputLoginHandler}
+        onChangeText={(value) =>
+                    setstate((prevState) => ({ ...prevState, nickname: value }))
+                  }
+        onFocus={() => setIsShowKeyboard(true)}
             />
             
       <TextInput
         placeholder="Адрес электронной почты"
-        value={email}
-        onChangeText={inputEmailHandler}
+        value={state.email}
+        onChangeText={(value) =>
+                    setstate((prevState) => ({ ...prevState, email: value }))
+                  }
         style={styles.input}
-          
+        onFocus={() => setIsShowKeyboard(true)}
       />
       <TextInput
         placeholder="Пароль"
-        value={password}
+        value={state.password}
         style={styles.input}
-        onChangeText={inputPasswordHandler}
+        onChangeText={(value) =>
+                    setstate((prevState) => ({ ...prevState, password: value }))
+                  }
+        onFocus={() => setIsShowKeyboard(true)}
             />
             
-        <Pressable style={styles.submitButton} onPress={() => navigation.navigate("PostsScreen")} >
+        <Pressable style={styles.submitButton} onPress={handleSubmit} >
           <Text style={styles.buttonText }>Зарегистрироваться</Text>
           </Pressable>
               <Button onPress={() => navigation.navigate("Login")} title='Уже есть аккаунт? Войти'></Button>

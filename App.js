@@ -1,34 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState,useEffect} from 'react';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import { useState } from 'react';
-import React from 'react';
-import { NavigationContainer } from "@react-navigation/native";
-
-
-import { useRoute } from './router';
+import {Provider} from 'react-redux'
+import { store } from './redax/store';
+import Main from './components/Main';
  
+const loadApplication = async () => {
+  await Font.loadAsync({
+    "Roboto-Regular": require("./assets/Roboto-Regular.ttf"),
+  });
+};
 
 export default function App() {
-  const routing = useRoute({})
+ 
 
  
   return (
-    <NavigationContainer >
-      {routing}
-    </NavigationContainer>
+    <Provider store={store}>
+        <Main/>
+    </Provider>
+    
   );
   
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+
+
 
 
 
