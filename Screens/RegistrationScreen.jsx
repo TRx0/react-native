@@ -68,7 +68,8 @@ export default function LoginScreen({ navigation }) {
       <TextInput
         placeholder="Пароль"
         value={state.password}
-        style={styles.input}
+              style={styles.input}
+              secureTextEntry={true}
         onChangeText={(value) =>
                     setstate((prevState) => ({ ...prevState, password: value }))
                   }

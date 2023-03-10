@@ -126,7 +126,7 @@ export default function CreatePostsScreen({ navigation }) {
         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
           <TextInput style={styles.input} onChangeText={text => onChangeName(text)} placeholder="Назва..." />
             <View style={{flexDirection: "row"}}>
-                <EvilIcons name="location" size={24} color="black" />           
+                         
                 <TextInput style={styles.input} onChangeText={text => onChangeLocation(text)} placeholder="Місцевість..."   />              
             </View> 
         </KeyboardAvoidingView>
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     height: 300,
     alignItems: "center",
     marginBottom: 32,
+    
   },
   snap: {
     fontWeights: 400,
@@ -188,6 +189,7 @@ const styles = StyleSheet.create({
     top: 0,
     borderColor: "#fff",
     borderWidth: 1,
+    
   },
   snapSendContainer: {
     width: 343,
@@ -206,6 +208,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     marginBottom: 32,
-    width: 323
+    width: "100%"
   }
 });

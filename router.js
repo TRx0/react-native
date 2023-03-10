@@ -18,8 +18,8 @@ const Tab = createBottomTabNavigator();
  export const useRoute = (isAuth) => { 
     if (!isAuth) { 
         return <MainStack.Navigator >
-                    <MainStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
-                    <MainStack.Screen name="Registration" component={RegistrationScreen} options={{ headerShown: false }} />
+                    <MainStack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
+                    <MainStack.Screen options={{ headerShown: false }} name="Registration" component={RegistrationScreen}  />
                 </MainStack.Navigator>
    } return <Tab.Navigator initialRouteName="PostsScreen" options={{} } >
        <Tab.Screen name="PostsScreen" component={PostsScreen} options={{
